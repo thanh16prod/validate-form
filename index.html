@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <script>
+        // Hàm kiểm tra CAPTCHA
+        function checkCaptcha() {
+            // Lấy giá trị nhập vào từ người dùng
+            var userInput = document.getElementById("captcha-input").value;
+
+            // Kiểm tra giá trị nhập vào với CAPTCHA đã tạo
+            if (userInput == "<?php echo $_SESSION['captcha_code']; ?>") {
+                // Giá trị nhập vào đúng
+                alert("Xác nhận CAPTCHA thành công!");
+                // Thực hiện các hành động tiếp theo, ví dụ: gửi form, chuyển hướng,...
+            } else {
+                // Giá trị nhập vào không đúng
+                alert("Xác nhận CAPTCHA không thành công. Vui lòng thử lại!");
+                // Cập nhật lại CAPTCHA (nếu cần)
+                generateCaptcha();
+            }
+        }
+
+        // Hàm tạo CAPTCHA
+        function generateCaptcha() {
+            var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            var captchaLength = 6;
+            var captchaCode = "";
+            for (var i = 0; i < captchaLength; i++) {
+                captchaCode += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById("captcha-image").src = "captcha.php?code=" + captchaCode;
+            document.getElementById("captcha-input").value = "";
+        }
+    </script>
+</head>
+
+<body>
+    <div class="modal">
+        <div class="modal-container">
+
+            <header class="modal-header">
+                <i class="ti-user modal-heading-icon"></i>
+                Sign Up
+            </header>
+
+            <div class="modal-body">
+                <div class="input-name">
+                    <!--Enter First Name  -->
+                    <div class="input-name-item">
+                        <label for="user-first-name" class="modal-label">
+                            <i class="ti-id-badge"></i>
+                            First Name
+                        </label>
+                        <input id="user-first-name" type="text" class="modal-input" placeholder="Enter first name">
+                    </div>
+
+                    <!--Enter Last Name  -->
+                    <div class="input-name-item">
+                        <label for="user-last-name" class="modal-label">
+                            <i class="ti-id-badge"></i>
+                            Last Name
+                        </label>
+                        <input id="user-last-name" type="text" class="modal-input" placeholder="Enter last name">
+                    </div>
+                </div>
+
+                <!-- Enter email  -->
+                <label for="user-email" class="modal-label">
+                    <i class="ti-email"></i>
+                    Email
+                </label>
+                <input id="user-email" type="text" class="modal-input" placeholder="Enter email">
+
+                <!-- Enter mobile number  -->
+                <label for="user-mobile-number" class="modal-label">
+                    <i class="ti-rss"></i>
+                    Mobile Number
+                </label>
+                <input id="user-mobile-number" type="number" class="modal-input" placeholder="Enter mobile number">
+
+                <!-- Upload file  -->
+                <div class="input-file">
+                    <label for="file-upload" class="input-file-label">Select a file:</label>
+                    <input type="file" id="file-upload" name="myfile">
+
+                    <label for="file-upload" class="input-file-label">Select a file:</label>
+                    <input type="file" id="file-upload" name="myfile">
+                </div>
+
+                <!-- Accept  -->
+                <label for="agree" class="agree-checkbox">I agree to <a href="#">the terms of service.</a></label>
+                <input type="checkbox" id="agree" name="agree" required>
+
+                    <!-- Register button  -->
+                    <button id="register-btn">
+                        Register
+                    </button>
+            </div>
+
+            <footer class="modal-footer">
+                <p class="modal-help">Need <a href="">help?</a></p>
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>
